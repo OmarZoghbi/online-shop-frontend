@@ -4,20 +4,17 @@ import HelloWorld from './components/HelloWorld.vue'
 import ArticleList from './components/ArticleList.vue'
 
 import { ref, onMounted } from "vue";
-import api from "./api.js";   // <-- Axios API importieren
 
 const message = ref("Lade...");
 
-// Backend-Request über Axios
-onMounted(async () => {
-  try {
-    const response = await api.get("/hello");
-    message.value = response.data;
-  } catch (error) {
-    console.error(error);
-    message.value = "Fehler beim Backend-Request";
-  }
+
+  function requestmessage() : void {
+  axios
+  .get<message[]>( url: 'https://online-shop-backend-8v7u.onrender.com/hello')
+  .then((response) => (message.value = response.data))
+  .catch ((error) => console.log(error))
 });
+
 </script>
 
 <template>
@@ -40,12 +37,11 @@ onMounted(async () => {
   </main>
 
   <RouterView />
-
-  <!-- Antwort der API -->
-  <div>
-    <h1>{{ message }}</h1>
-  </div>
+   <div>
+      <h1>{{ message }}</h1>
+    </div>
 </template>
+
 
 <style scoped>
 /* dein Style bleibt unverändert */
