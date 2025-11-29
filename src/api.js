@@ -6,3 +6,10 @@ const api = axios.create({
 });
 
 export default api;
+
+import axios from "axios";
+
+export async function getProducts() {
+    const res = await axios.get("https://online-shop-backend-8v7u.onrender.com/products");
+    return res.data;
+}

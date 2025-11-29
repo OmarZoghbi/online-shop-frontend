@@ -1,18 +1,25 @@
-<script setup>
+<script setup lang="ts">
 import { RouterLink, RouterView } from 'vue-router'
 import HelloWorld from './components/HelloWorld.vue'
 import ArticleList from './components/ArticleList.vue'
 
+import axios from "axios";
 import { ref, onMounted } from "vue";
 
 const message = ref("Lade...");
 
 
-  function requestmessage() : void {
+//requestmessage-Funktion
+// ---------------------------------------------------
+function requestmessage() : void {
   axios
-  .get<message[]>( url: 'https://online-shop-backend-8v7u.onrender.com/hello')
-  .then((response) => (message.value = response.data))
-  .catch ((error) => console.log(error))
+      .get<string>('https://online-shop-backend-8v7u.onrender.com/hello')
+      .then((response) => (message.value = response.data))
+      .catch ((error) => console.log(error))
+}
+
+onMounted(() => {
+  requestmessage();
 });
 
 
@@ -39,11 +46,11 @@ const message = ref("Lade...");
   </main>
 
   <RouterView />
-   <div>
-      <h1>{{ message }}</h1>
-    </div>
-</template>
 
+  <div>
+    <h1>{{ message }}</h1>
+  </div>
+</template>
 
 <style scoped>
 /* dein Style bleibt unverändert */
