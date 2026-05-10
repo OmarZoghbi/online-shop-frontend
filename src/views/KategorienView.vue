@@ -27,8 +27,8 @@ const gefiltert = computed(() =>
 
     <div class="grid">
       <ArticleCard
-          v-for="(item, i) in gefiltert"
-          :key="i"
+          v-for="(item) in gefiltert"
+          :key="item.id"
           :name="item.name"
           :price="item.price"
           :imageUrl="item.imageUrl"
