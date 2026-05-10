@@ -1,57 +1,48 @@
 <script setup lang="ts">
-import { RouterLink, RouterView } from 'vue-router'
-import HelloWorld from './components/HelloWorld.vue'
-import ArticleList from './components/ArticleList.vue'
-
-import axios from "axios";
 import { ref, onMounted } from "vue";
+import { RouterView } from 'vue-router'
+import axios from "axios";
+import Navbar from "@/components/Navbar.vue";
+import Werbebar from "@/components/werbebar.vue";
+import AtlasFooter from "@/components/AtlasFooter.vue";
 
 const message = ref("Lade...");
 
-
-//requestmessage-Funktion
-// ---------------------------------------------------
-function requestmessage() : void {
+function requestmessage(): void {
   axios
       .get<string>('https://online-shop-backend-8v7u.onrender.com/hello')
       .then((response) => (message.value = response.data))
-      .catch ((error) => console.log(error))
+      .catch((error) => console.log(error));
 }
 
 onMounted(() => {
   requestmessage();
 });
 
-
-
 </script>
 
 <template>
-  <header>
-    <img alt="Vue logo" class="logo" src="@/assets/logo.svg" width="125" height="125" />
 
-    <div class="wrapper">
-      <HelloWorld msg="You did it!" />
+  <div id="app">
 
-      <nav>
-        <RouterLink to="/">Home</RouterLink>
-        <RouterLink to="/about">About</RouterLink>
-      </nav>
-    </div>
-  </header>
+    <Werbebar />
+    <Navbar />
 
-  <main>
-    <h1>Mein Online-Shop</h1>
-    <ArticleList />
-  </main>
+    <main class="content-area">
+      <RouterView />
+    </main>
 
-  <RouterView />
-
-  <div>
-    <h1>{{ message }}</h1>
+    <AtlasFooter />
   </div>
 </template>
 
 <style scoped>
-/* dein Style bleibt unverändert */
+
+.content-area {
+  width: 100%;
+  padding-top: 148px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
 </style>
