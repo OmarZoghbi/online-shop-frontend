@@ -6,6 +6,7 @@ import Kontakt from '../views/Kontakt.vue';
 import AboutView from '../views/AboutView.vue';
 import CartView from "@/views/CartView.vue";
 import {useCart} from "@/stores/cart.ts";
+import AdminProductsView from "../views/AdminProductsView.vue";
 
 
 
