@@ -45,6 +45,11 @@ const router = createRouter({
             path: "/warenkorb",
             name: "cart",
             component: CartView,
+        },
+        {
+            path: "/admin/products",
+            name: "admin-products",
+            component: AdminProductsView,
         }
     ]
 });

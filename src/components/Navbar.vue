@@ -190,6 +190,17 @@ onBeforeUnmount(() => {
       >
         Über uns
       </router-link>
+      <router-link
+          to="/admin/products"
+          class="nav-link"
+          @click="
+          emit('leaveWelcome');
+          closeSidebar();
+        "
+      >
+        Admin Produkte
+      </router-link>
+
     </div>
 
     <div class="navbar-right">
