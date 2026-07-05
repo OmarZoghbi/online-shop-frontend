@@ -431,6 +431,7 @@ table {
   border-collapse: collapse;
   overflow: hidden;
   border-radius: 12px;
+  font-weight: 700;
 }
 
 th,
@@ -442,7 +443,7 @@ td {
 
 th {
   color: #082949;
-  background: #f1f5f9;
+
 }
 
 @media (max-width: 780px) {
