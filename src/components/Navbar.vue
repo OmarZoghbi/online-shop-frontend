@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { computed, onBeforeUnmount, ref } from "vue";
 import KategorienSidebar from "@/components/KategorienSidebar.vue";
+import { useCart } from "@/stores/cart";
 import { RouterLink } from "vue-router";
 
 type Language = {
@@ -52,6 +53,8 @@ const selectedLang = computed(
 const selectedCountry = computed(
     () => currencies.find((currency) => currency.id === selectedCurrencyId.value) ?? currencies[0]
 );
+
+const { totalItems } = useCart();
 
 /* Konto erstellen */
 const firstName = ref("");
@@ -286,31 +289,13 @@ onBeforeUnmount(() => {
 
       <div v-if="currencyOpen" class="dropdown-backdrop" @click="closeCurrency"></div>
 
-      <RouterLink to="/warenkorb" class="icon-btn" aria-label="Warenkorb">
-        <svg class="icon" viewBox="0 0 24 24">
-          <path
-              d="M6 6h15l-1.5 9h-12z"
-              stroke="currentColor"
-              stroke-width="2"
-              fill="none"
-          />
-          <circle
-              cx="9"
-              cy="20"
-              r="1.5"
-              stroke="currentColor"
-              stroke-width="2"
-              fill="none"
-          />
-          <circle
-              cx="17"
-              cy="20"
-              r="1.5"
-              stroke="currentColor"
-              stroke-width="2"
-              fill="none"
-          />
-        </svg>
+      <RouterLink to="/warenkorb" class="cart-link" aria-label="Warenkorb">
+        <span class="cart-icon">🛒</span>
+
+        <span v-if="totalItems > 0" class="cart-badge">
+    {{ totalItems }}
+  </span>
+
       </RouterLink>
 
       <button type="button" class="icon-btn" aria-label="Benutzerkonto">
@@ -732,6 +717,44 @@ onBeforeUnmount(() => {
   position: fixed;
   inset: 0;
   z-index: 299;
+}
+
+.cart-link {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  text-decoration: none;
+}
+
+.cart-icon {
+  font-size: 1.5rem;
+  line-height: 1;
+}
+.cart-badge {
+  position: absolute;
+  top: -10px;
+  right: -12px;
+  min-width: 22px;
+  height: 22px;
+  padding: 0 6px;
+  border-radius: 999px;
+  background: #ffd84d;
+  color: #082949 !important;
+  font-size: 0.75rem;
+  font-weight: 900;
+  line-height: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+  z-index: 5;
+}
+
+.navbar .cart-badge {
+  color: #082949 !important;
 }
 
 /* ================================
