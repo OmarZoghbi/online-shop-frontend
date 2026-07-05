@@ -446,6 +446,21 @@ th {
 
 }
 
+.product-list tbody td {
+  color: #082949 !important;
+  opacity: 1 !important;
+  font-weight: 600;
+}
+
+.product-list tbody tr {
+  background-color: #ffffff;
+}
+
+.product-list thead th {
+  color: #082949;
+}
+
+
 @media (max-width: 780px) {
   .form-row {
     grid-template-columns: 1fr;
@@ -470,5 +485,7 @@ th {
     border-radius: 12px;
     overflow: hidden;
   }
+
+
 }
 </style>
