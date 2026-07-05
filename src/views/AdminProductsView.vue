@@ -123,6 +123,33 @@ async function removeProduct(product: Product): Promise<void> {
     errorMessage.value = "Löschen fehlgeschlagen.";
   }
 }
+async function toggleAvailability(product: Product): Promise<void> {
+  errorMessage.value = "";
+  successMessage.value = "";
+
+  const updatedProduct: ProductForm = {
+    name: product.name ?? "",
+    description: product.description ?? "",
+    price: Number(product.price ?? 0),
+    category: product.category ?? "",
+    imageUrl: product.imageUrl ?? "",
+    badge: product.badge ?? "",
+    available: !product.available,
+  };
+
+  try {
+    await updateProduct(product.id, updatedProduct);
+
+    successMessage.value = updatedProduct.available
+        ? "Produkt wurde aktiviert."
+        : "Produkt wurde deaktiviert.";
+
+    await loadProducts();
+  } catch (error) {
+    console.error(error);
+    errorMessage.value = "Verfügbarkeit konnte nicht geändert werden.";
+  }
+}
 
 onMounted(() => {
   loadProducts();
@@ -231,6 +258,11 @@ onMounted(() => {
               <button type="button" class="secondary-btn" @click="editProduct(product)">
                 Bearbeiten
               </button>
+
+              <button type="button" class="secondary-btn" @click="toggleAvailability(product)">
+                {{ product.available ? "Deaktivieren" : "Aktivieren" }}
+              </button>
+
               <button type="button" class="danger-btn" @click="removeProduct(product)">
                 Löschen
               </button>

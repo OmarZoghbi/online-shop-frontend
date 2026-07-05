@@ -6,6 +6,28 @@ import { useCart } from "@/stores/cart";
 
 const { addToCart } = useCart();
 
+function parseEuroPrice(price: string): number {
+  return Number(
+      price
+          .replace("€", "")
+          .replace(/\./g, "")
+          .replace(",", ".")
+          .trim()
+  );
+}
+
+function addBestsellerToCart(product: Product): void {
+  addToCart({
+    id: product.id,
+    name: product.name,
+    category: product.category,
+    price: parseEuroPrice(product.price),
+    oldPrice: product.oldPrice ? parseEuroPrice(product.oldPrice) : undefined,
+    badge: product.badge,
+    emoji: product.emoji,
+  });
+}
+
 type Product = {
   id: number;
   name: string;
@@ -213,6 +235,7 @@ onBeforeUnmount(() => {
                     <button
                         type="button"
                         class="product-card__btn product-card__btn--primary"
+                        @click="addBestsellerToCart(product)"
                     >
                       In den Warenkorb
                     </button>
